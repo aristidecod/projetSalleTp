@@ -12,6 +12,7 @@ class Salle
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
+
     #[ORM\Column]
     private ?int $id = null;
 
@@ -64,6 +65,7 @@ class Salle
 
         return $this;
     }
+    
     public function __toString() {
         return $this->getBatiment().'-'.$this->getEtage().'.'.$this->getNumero();
     }

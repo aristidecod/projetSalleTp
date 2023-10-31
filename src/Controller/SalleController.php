@@ -32,6 +32,22 @@
             $salle->setNumero(14);
             return $this->render('salle/quatorze.html.twig',array('designation'=>$salle->__toString()));
         }
+        
+        public function voir($id) {
+            $salle = $this->getDoctrine()->getRepository(Salle::class)->find($id);
+            if(!$salle) throw $this->createNotFoundException('Salle[id='.$id.'] inexistante');
+            return $this->render('salle/voir.html.twig',array('salle' => $salle));
+        }
+        
+        public function ajouter($batiment, $etage, $numero) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $salle = new Salle;
+            $salle->setBatiment($batiment);
+            $salle->setEtage($etage);
+            $salle->setNumero($numero);
+            $entityManager->persist($salle);
+            $entityManager->flush();
+            return $this->redirectToRoute('salle_tp_voir',array('id' => $salle->getId()));
+        }
     }
-    
 ?>
